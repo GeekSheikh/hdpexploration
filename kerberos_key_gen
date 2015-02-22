@@ -1,0 +1,51 @@
+/usr/sbin/kadmin.local
+
+addprinc -randkey jt/$cophdpdn01.cophdp.local@COPHDP.LOCAL
+addprinc -randkey jt/$cophdpdn02.cophdp.local@COPHDP.LOCAL
+addprinc -randkey jt/$cophdpdn03.cophdp.local@COPHDP.LOCAL
+addprinc -randkey tt/$cophdpdn01.cophdp.local@COPHDP.LOCAL
+addprinc -randkey tt/$cophdpdn02.cophdp.local@COPHDP.LOCAL
+addprinc -randkey tt/$cophdpdn03.cophdp.local@COPHDP.LOCAL
+
+addprinc -randkey hbase/$cophdpnn01.cophdp.local@COPHDP.LOCAL
+addprinc -randkey hbase/$cophdpnn02.cophdp.local@COPHDP.LOCAL
+addprinc -randkey hbase/$cophdpdn01.cophdp.local@COPHDP.LOCAL
+addprinc -randkey hbase/$cophdpdn02.cophdp.local@COPHDP.LOCAL
+addprinc -randkey hbase/$cophdpdn03.cophdp.local@COPHDP.LOCAL
+addprinc -randkey zookeeper/$cophdpdn01.cophdp.local@COPHDP.LOCAL
+addprinc -randkey zookeeper/$cophdpdn02.cophdp.local@COPHDP.LOCAL
+addprinc -randkey zookeeper/$cophdpdn03.cophdp.local@COPHDP.LOCAL
+addprinc -randkey hive/$cophdpnn01.cophdp.local@COPHDP.LOCAL
+addprinc -randkey hive/$cophdpnn02.cophdp.local@COPHDP.LOCAL
+addprinc -randkey oozie/$cophdpnn01.cophdp.local@COPHDP.LOCAL
+addprinc -randkey oozie/$cophdpnn02.cophdp.local@COPHDP.LOCAL
+addprinc -randkey hue/$cophdpamb.cophdp.local@COPHDP.LOCAL
+
+xst -norandkey -k /home/tomesd/keytabs/nn.service.keytab nn/$cophdpnn01.cophdp.local
+xst -norandkey -k /home/tomesd/keytabs/nn.service.keytab nn/$cophdpnn02.cophdp.local
+xst -norandkey -k /home/tomesd/keytabs/spnego.service.keytab HTTP/$cophdpnn02.cophdp.local
+xst -norandkey -k /home/tomesd/keytabs/spnego.service.keytab HTTP/$cophdpnn01.cophdp.local
+xst -norandkey -k /home/tomesd/keytabs/dn.service.keytab dn/$cophdpdn01.cophdp.local
+xst -norandkey -k /home/tomesd/keytabs/dn.service.keytab dn/$cophdpdn02.cophdp.local
+xst -norandkey -k /home/tomesd/keytabs/dn.service.keytab dn/$cophdpdn03.cophdp.local
+xst -norandkey -k /home/tomesd/keytabs/jt.service.keytab dn/$cophdpdn01.cophdp.local
+xst -norandkey -k /home/tomesd/keytabs/jt.service.keytab dn/$cophdpdn02.cophdp.local
+xst -norandkey -k /home/tomesd/keytabs/jt.service.keytab dn/$cophdpdn03.cophdp.local
+xst -norandkey -k /home/tomesd/keytabs/tt.service.keytab dn/$cophdpdn01.cophdp.local
+xst -norandkey -k /home/tomesd/keytabs/tt.service.keytab dn/$cophdpdn02.cophdp.local
+xst -norandkey -k /home/tomesd/keytabs/tt.service.keytab dn/$cophdpdn03.cophdp.local
+xst -norandkey -k /home/tomesd/keytabs/hbase.service.keytab hbase/$cophdpdn01.cophdp.local
+xst -norandkey -k /home/tomesd/keytabs/hbase.service.keytab hbase/$cophdpdn02.cophdp.local
+xst -norandkey -k /home/tomesd/keytabs/hbase.service.keytab hbase/$cophdpdn03.cophdp.local
+xst -norandkey -k /home/tomesd/keytabs/hbase.service.keytab hbase/$cophdpnn01.cophdp.local
+xst -norandkey -k /home/tomesd/keytabs/hbase.service.keytab hbase/$cophdpnn02.cophdp.local
+xst -norandkey -k /home/tomesd/keytabs/zookeeper.service.keytab zk/$cophdpdn01.cophdp.local
+xst -norandkey -k /home/tomesd/keytabs/zookeeper.service.keytab zk/$cophdpdn02.cophdp.local
+xst -norandkey -k /home/tomesd/keytabs/zookeeper.service.keytab zk/$cophdpdn03.cophdp.local
+xst -norandkey -k /home/tomesd/keytabs/hive.service.keytab hive/$cophdpnn01.cophdp.local
+xst -norandkey -k /home/tomesd/keytabs/hive.service.keytab hive/$cophdpnn02.cophdp.local
+xst -norandkey -k /home/tomesd/keytabs/oozie.service.keytab oozie/$cophdpnn01.cophdp.local
+xst -norandkey -k /home/tomesd/keytabs/oozie.service.keytab oozie/$cophdpnn02.cophdp.local
+xst -norandkey -k /home/tomesd/keytabs/hue.service.keytab hue/$cophdpamb.cophdp.local
+
+

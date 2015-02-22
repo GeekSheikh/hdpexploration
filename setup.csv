@@ -1,0 +1,90 @@
+FQDN
+hdpnn01.hdpeast.cloudapp.net
+hdpnn02.hdpeast.cloudapp.net
+hdpe01.hdpeast.cloudapp.net
+hdpdn01.hdpeast.cloudapp.net
+hdpdn02.hdpeast.cloudapp.net
+hdpdn03.hdpeast.cloudapp.net
+
+sudo yum -y update
+
+Mount Points
+/hdfs/
+
+Install MySQL & Details
+
+Passwordless sudo
+echo "tomesd ALL = (ALL) NOPASSWD:ALL">/etc/sudoers.d/waagent
+
+Passwordless SSH
+ssh-keyget -t rsa
+
+ssh tomesd@cophdpnn01 mkdir -p .ssh
+cat .ssh/id_rsa.pub | ssh tomesd@cophdpnn01 'cat >> .ssh/authorized_keys'
+ssh tomesd@cophdpnn01 'chmod 700 /home/tomesd/.ssh/'
+ssh tomesd@cophdpnn01 'chmod 640 /home/tomesd/.ssh/authorized_keys'
+
+ssh tomesd@cophdpnn02 mkdir -p .ssh
+cat .ssh/id_rsa.pub | ssh tomesd@cophdpnn02 'cat >> .ssh/authorized_keys'
+ssh tomesd@cophdpnn02 'chmod 700 /home/tomesd/.ssh/'
+ssh tomesd@cophdpnn02 'chmod 640 /home/tomesd/.ssh/authorized_keys'
+
+ssh tomesd@cophdpe01 mkdir -p .ssh
+cat .ssh/id_rsa.pub | ssh tomesd@cophdpe01 'cat >> .ssh/authorized_keys'
+ssh tomesd@cophdpe01 'chmod 700 /home/tomesd/.ssh/'
+ssh tomesd@cophdpe01 'chmod 640 /home/tomesd/.ssh/authorized_keys'
+
+ssh tomesd@cophdpdn01 mkdir -p .ssh
+cat .ssh/id_rsa.pub | ssh tomesd@cophdpdn01 'cat >> .ssh/authorized_keys'
+ssh tomesd@cophdpdn01 'chmod 700 /home/tomesd/.ssh/'
+ssh tomesd@cophdpdn01 'chmod 640 /home/tomesd/.ssh/authorized_keys'
+
+ssh tomesd@cophdpdn02 mkdir -p .ssh
+cat .ssh/id_rsa.pub | ssh tomesd@cophdpdn02 'cat >> .ssh/authorized_keys'
+ssh tomesd@cophdpdn02 'chmod 700 /home/tomesd/.ssh/'
+ssh tomesd@cophdpdn02 'chmod 640 /home/tomesd/.ssh/authorized_keys'
+
+ssh tomesd@cophdpdn03 mkdir -p .ssh
+cat .ssh/id_rsa.pub | ssh tomesd@cophdpdn03 'cat >> .ssh/authorized_keys'
+ssh tomesd@cophdpdn03 'chmod 700 /home/tomesd/.ssh/'
+ssh tomesd@cophdpdn03 'chmod 640 /home/tomesd/.ssh/authorized_keys'
+
+Enable NTP
+sudo chkconfig ntpd on
+
+Change hostname
+sudo hostname=**
+
+Edit /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+129.168.1.4  cophdpdns.cophdp.local cophdpdns.cophdp.cloudapp.net cophdpdns
+192.168.2.4  cophdpamb.cophdp.local cophdpamb.cophdp.cloudapp.net cophdpamb
+192.168.2.10 cophdpnn01.cophdp.local cophdpnn01.cophdp.cloudapp.net cophdpnn01
+192.168.2.11 cophdpnn02.cophdp.local cophdpnn02.cophdp.cloudapp.net cophdpnn02
+192.168.2.12 cophdpe01.cophdp.local cophdpe01.cophdp.cloudapp.net cophdpe01
+192.168.2.101 cophdpdn01.cophdp.local cophdpdn01.cophdp.cloudapp.net cophdpdn01
+192.168.2.102 cophdpdn02.cophdp.local cophdpdn02.cophdp.cloudapp.net cophdpdn02
+192.168.2.103 cophdpdn03.cophdp.local cophdpdn03.cophdp.cloudapp.net cophdpdn03
+
+Disable SELinux
+sudo vi /etc/selinux/config
+
+Disable IPTables
+sudo chkconfig iptables off
+sudo /etc/init.d/iptables stop
+
+Install JAVA
+ln -s /usr/java/jdk1.6.0_31/ /usr/java/latest
+ln -s /usr/java/latest /usr/java/default
+
+alternatives --install /usr/bin/java java /usr/java/default/bin/java 100
+update-alternatives --config java
+
+
+
+--------Accounts------
+Nagios Admin User
+user - nagiosadmin
+pass - same as Azure
+
