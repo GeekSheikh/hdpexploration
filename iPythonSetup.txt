@@ -1,0 +1,60 @@
+echo "tomesd ALL = (ALL) NOPASSWD:ALL">/etc/sudoers.d/waagent
+
+sudo groupadd pyspark
+sudo useradd -g pyspark -c "PySpark Default" -m -d /home/pyspark -s /bin/bash pyspark
+echo "pyspark ALL = (ALL) NOPASSWD:ALL">>/etc/sudoers.d/waagent
+
+sudo yum update
+sudo yum install gcc, gcc-c++ gcc-gfortran
+sudo yum install zlib-devel bzip2-devel openssl-devel xz-libs wget
+sudo yum -y install sqlite-devel lrzsz freetype-devel libpng-devel
+sudo yum -y install geos geos-devel cairo-devel libXt-devel
+sudo yum -y install boost-devel libcurl libcurl-devel
+sudo yum groupinstall development tools
+sudo yum -y install lapack lapack-devel blas blas-devel readline-devel
+sudo yum -y install java-1.7.0-openjdk-devel
+
+Install SQLite
+wget http://www.sqlite.org/2014/sqlite-autoconf-3080600.tar.gz
+tar xvfz sqlite-autoconf-3080600.tar.gz
+cd sqlite-autoconf-3080600
+./configure --prefix=/home/pyspark/.sqlite3
+make && make install
+
+Install Pythin 2.7.8
+wget https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tar.xz
+xz -d Python-2.7.8.tar.xz && tar -xvf Python-2.7.8.tar
+cd Python-2.7.8
+./configure --prefix=/home/pyspark/.python LDFLAGS='-L/home/pyspark/sqlite-autoconf-3080600/.libs' CPPFLAGS='-I/home/pyspark/sqlite-autoconf-3080600/'
+make && make altinstall
+
+Install Python Management Package
+wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
+.python/bin/python2.7 ez_setup.py
+.python/bin/easy_install-2.7 pip
+
+Install & Activate Virtual Environment
+.python/bin/pip2.7 install virtualenv
+.python/bin/virtualenv-2.7 pyenv
+chmod +x ./pyenv/bin/activate
+source ./pyenv/bin/activate 
+
+sudo echo 'source /home/pyspark/pyenv/bin/activate' >> /home/pyspark/.bashrc
+sudo echo 'export '
+
+Install data science packages
+pip install numpy scipy pandas scikit-learn rpy2
+
+Install matplotlib (Python Graphics)
+wget http://sourceforge.net/projects/freetype/files/freetype2/2.5.0/freetype-2.5.0.tar.gz
+tar xvfz freetype-2.5.0.tar.gz 
+cd /home/pyspark/freetype-2.5.0
+sudo ./configure --prefix=/usr --disable-static && make
+sudo make install && install -v -m755 -d /usr/share/doc/freetype-2.5.0 && cp -v -R docs/* /usr/share/doc/freetype-2.5.0
+source ./pyenv/bin/activate
+pip install matplotlib
+easy_install ipython
+
+Setup default iPython Notebook
+pip install tornado pyzmq ipython pygments matplotlib jinja2
+ipython profile create default
